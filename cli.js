@@ -13,6 +13,7 @@ export default () => {
         console.log(`filepath: ${filepath1}`);
         console.log(`filepath: ${filepath2}`);
         const difference = makeDiff(filepath1, filepath2);
+        console.log(difference);
 
        // console.log(options);
        // console.log(`filepath: ${filepath1}`);

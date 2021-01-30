@@ -5,8 +5,7 @@ import { default as YAML } from 'js-yaml';
 
 const makeMerge = (obj1, obj2) => {
   const clone1 = _.cloneDeep(obj1);
-  const clone2 = _.cloneDeep(obj2);
-  _.merge(clone1, clone2);
+  _.merge(clone1, obj2);
   return clone1;
 };
 
@@ -48,6 +47,7 @@ const makeNormalOutput = (item) => {
 }
 
 const generateString = (obj) => {
+  // in recursion version replace map to for in and function
   const result = _.entries(obj).map(makeNormalOutput);
   return `{\n${result.join('')}}`;
 }
@@ -74,7 +74,7 @@ const genDiff = (filepath1, filepath2) => {
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
   const resultString = generateString(delta);
-  console.log(resultString);
+  return resultString;
 };
-// genDiff();
+
 export default genDiff;
