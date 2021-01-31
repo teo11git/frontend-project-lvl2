@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path  from 'path';
-import {default as _ } from 'lodash';
+import { default as _ } from 'lodash';
 import { default as YAML } from 'js-yaml';
 
 const makeMerge = (obj1, obj2) => {
@@ -14,18 +14,18 @@ const calculateDelta = (obj1, obj2, merged) => {
     const hasNoValue = 'special_no_key'
     const value1 = _.has(obj1, key) ? obj1[key] : hasNoValue;
     const value2 = _.has(obj2, key) ? obj2[key] : hasNoValue;
-    if (value1 === hasNoValue) {
-      return acc = { ...acc,  [key]: [value2, 'added'] };
-    }
-    if (value2 === hasNoValue) {
-      return acc = { ...acc,  [key]: [value1, 'removed'] };
-    }
-    if (value1 === value2) {
-      return acc = { ...acc,  [key]: [value1, 'stay'] };
-    }
-    if (value1 !== value2) {
-      return acc = { ...acc,  [key]: [value1, value2, 'changed'] };
-    }
+      if (value1 === hasNoValue) {
+        acc[key] = [value2, 'added'];
+      } else if (value2 === hasNoValue) {
+        acc[key] = [value1, 'removed'];
+      } else if (value1 === value2) {
+        acc[key] =  [value1, 'stay'];
+      } else if (!_.isPlainObject(value1) && !_.isPlainObject(value2)) {
+        acc[key] = [value1, value2, 'changed'];
+      } else {
+        acc[key] = calculateDelta(obj1[key], obj2[key], merged[key]);
+      }
+        return acc;    
   }, {});
 };
 
@@ -73,8 +73,9 @@ const genDiff = (filepath1, filepath2) => {
   const object2 = parser[data2.ext](data2.content);
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
-  const resultString = generateString(delta);
-  return resultString;
+  //const resultString = generateString(delta);
+  console.log(delta);
+  return '';
 };
 
 export default genDiff;
