@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as path  from 'path';
 import { default as _ } from 'lodash';
 import { default as YAML } from 'js-yaml';
+import { default as formatToStilysh } from './formatters/stilysh-format.js';
 
 const makeMerge = (obj1, obj2) => {
   const clone1 = _.cloneDeep(obj1);
@@ -9,48 +10,48 @@ const makeMerge = (obj1, obj2) => {
   return clone1;
 };
 
-const calculateDelta = (obj1, obj2, merged) => {
- return  _.keys(merged).reduce((acc, key) => {
-    const hasNoValue = 'special_no_key'
-    const value1 = _.has(obj1, key) ? obj1[key] : hasNoValue;
-    const value2 = _.has(obj2, key) ? obj2[key] : hasNoValue;
-      if (value1 === hasNoValue) {
-        acc[key] = [value2, 'added'];
-      } else if (value2 === hasNoValue) {
-        acc[key] = [value1, 'removed'];
-      } else if (value1 === value2) {
-        acc[key] =  [value1, 'stay'];
-      } else if (!_.isPlainObject(value1) && !_.isPlainObject(value2)) {
-        acc[key] = [value1, value2, 'changed'];
-      } else {
-        acc[key] = calculateDelta(obj1[key], obj2[key], merged[key]);
-      }
-        return acc;    
-  }, {});
+const makeComparsion = (val1, val2, specialValue) => {
+  if (val1 === specialValue) {
+    return 'added';
+  }
+  if (val2 === specialValue) {
+    return 'removed';
+  }
+  if (_.isEqual(val1, val2)) {
+    return 'stay';
+  }
+  return 'changed';
 };
 
-const makeNormalOutput = (item) => {
-  const tab = '  ';
-  let [key, ...value] = item;
-  value = value[0];
-  const state = value[value.length - 1];
-  switch (state) {
-    case 'added':
-      return `${tab}+ ${key}: ${value[0]}\n`;
-    case 'removed':
-      return `${tab}- ${key}: ${value[0]}\n`;
-    case 'stay':
-      return `${tab}  ${key}: ${value[0]}\n`;
-    case 'changed':
-      return `${tab}- ${key}: ${value[0]}\n${tab}+ ${key}: ${value[1]}\n`;
-  }
-}
-
-const generateString = (obj) => {
-  // in recursion version replace map to for in and function
-  const result = _.entries(obj).map(makeNormalOutput);
-  return `{\n${result.join('')}}`;
-}
+const calculateDelta = (obj1, obj2, merged) => {
+  const hasNoKey = 'special_no_key';
+  return  _.keys(merged).reduce((acc, key) => {
+    const value1 = _.has(obj1, key) ? obj1[key] : hasNoKey;
+    const value2 = _.has(obj2, key) ? obj2[key] : hasNoKey;
+    let state = makeComparsion(value1, value2, hasNoKey);
+    if (!_.isPlainObject(value1) && !_.isPlainObject(value2)) {
+      switch (state) {
+        case 'added':
+          acc[key] = [value2, state];
+          break;
+        case 'changed':
+          acc[key] = [value1, value2, state];
+          break;
+        default:
+          acc[key] = [value1, state];
+      }
+      return acc;
+    }
+    switch (state) {
+      case 'changed':
+        acc[key] = calculateDelta(obj1[key], obj2[key], merged[key]);
+        break;
+      default:
+        acc[key] = [`[complex_value]`, state];
+    }
+    return acc;    
+  }, {});
+};
 
 const getFile = (filepath) => {
   console.log(path.resolve(filepath));
@@ -73,8 +74,9 @@ const genDiff = (filepath1, filepath2) => {
   const object2 = parser[data2.ext](data2.content);
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
-  //const resultString = generateString(delta);
+  const formatted = formatToStilysh(delta);
   console.log(delta);
+  console.log(`formatted output is:\n${formatted}`);
   return '';
 };
 
