@@ -2,7 +2,8 @@ import * as fs from 'fs';
 import * as path  from 'path';
 import { default as _ } from 'lodash';
 import { default as YAML } from 'js-yaml';
-import { default as formatToStilysh } from './formatters/stilysh-format.js';
+import { default as formatToStylish } from './formatters/stylish-format.js';
+import { default as formatToPlain } from './formatters/plain-format.js';
 
 const makeMerge = (obj1, obj2) => {
   const clone1 = _.cloneDeep(obj1);
@@ -62,22 +63,26 @@ const getFile = (filepath) => {
   return data;
 };
 
+const formatters = {
+  stylish: formatToStylish,
+  plain: formatToPlain,
+  json: JSON.stringify,
+};
+
 const parser = {
   json: JSON.parse,
   yaml: YAML.load,
 };
 
-const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const data1 = getFile(filepath1);
   const data2 = getFile(filepath2);
   const object1 = parser[data1.ext](data1.content);
   const object2 = parser[data2.ext](data2.content);
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
-  const formatted = formatToStilysh(delta);
-  console.log(delta);
-  console.log(`formatted output is:\n${formatted}`);
-  return '';
+  const formatted = formatters[formatName](delta);
+  return formatters[formatName](delta, null, '    ');
 };
 
 export default genDiff;
