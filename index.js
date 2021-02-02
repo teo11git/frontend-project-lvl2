@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as path  from 'path';
-import { default as _ } from 'lodash';
-import { default as YAML } from 'js-yaml';
-import { default as formatToStylish } from './formatters/stylish-format.js';
-import { default as formatToPlain } from './formatters/plain-format.js';
+import  _ from 'lodash';
+import YAML from 'js-yaml';
+import formatToStylish from './formatters/stylish-format.js';
+import formatToPlain from './formatters/plain-format.js';
 
 const makeMerge = (obj1, obj2) => {
   const clone1 = _.cloneDeep(obj1);
