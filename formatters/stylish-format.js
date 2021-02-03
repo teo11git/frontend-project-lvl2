@@ -6,7 +6,7 @@ const sign = {
   stay: ' ',
 };
 
-const prettify = (data, arg1, arg2, tab = '  ') => {
+const prettify = (data, tab = '  ') => {
   let result = [];
   for (const item of Object.entries(data)) {
     const [key, value] = item;
@@ -23,7 +23,7 @@ const prettify = (data, arg1, arg2, tab = '  ') => {
         }
       continue;
     }
-    result.push(`${tab}  ${key}: {\n${prettify(data[key], arg1, arg2, tab += '  ')}${tab}}\n`);      
+    result.push(`${tab}  ${key}: {\n${prettify(data[key], tab += '  ')}${tab}}\n`);      
   }
   return result.join('');
 }

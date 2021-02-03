@@ -1,0 +1,20 @@
+{
+  "cage": "trial",
+  "art": false,
+  "climate": {
+    "ptay": "me",
+    "stake": "worm"
+  },
+  "vote": {
+    "wagon": "sin"
+  },
+  "node": {
+    "sign": {
+      "boat": "boom",
+      "taxi": "heat",
+      "lung": "battery"
+    }
+  },
+  "sharp": 5460,
+  "area": false
+}

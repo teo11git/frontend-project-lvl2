@@ -1,6 +1,6 @@
 import { default as _ } from 'lodash';
 
-const prettify = (data, arg1, arg2, pathToProp = '') => {
+const prettify = (data, pathToProp = '') => {
   let result = [];
   for (const [key, value] of Object.entries(data)) {
     if (!_.isPlainObject(value)) {
@@ -20,7 +20,7 @@ const prettify = (data, arg1, arg2, pathToProp = '') => {
         }
       continue;
     }
-    result.push(`${prettify(data[key], arg1, arg2, pathToProp + key + '.')}`);      
+    result.push(`${prettify(data[key], pathToProp + key + '.')}`);      
   }
   return result.join('');
 }

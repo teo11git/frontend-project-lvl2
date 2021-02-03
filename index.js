@@ -55,7 +55,7 @@ const calculateDelta = (obj1, obj2, merged) => {
 };
 
 const getFile = (filepath) => {
-  console.log(path.resolve(filepath));
+  // console.log(path.resolve(filepath));
   const data = {
     content: fs.readFileSync(filepath, 'utf-8'),
     ext: path.parse(filepath).ext.slice(1),
@@ -82,7 +82,7 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
   const formatted = formatters[formatName](delta);
-  return formatters[formatName](delta, null, '    ');
+  return formatters[formatName](delta);
 };
 
 export default genDiff;
