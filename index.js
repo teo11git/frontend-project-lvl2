@@ -1,10 +1,10 @@
 import * as fs from 'fs';
 import * as path  from 'path';
 import  _ from 'lodash';
-import YAML from 'js-yaml';
+import parse from './file-processing/parsers.js';
 import formatToStylish from './formatters/stylish-format.js';
 import formatToPlain from './formatters/plain-format.js';
-import getFile from './file-reader/file-reader.js';
+import getFile from './file-processing/file-reader.js';
 
 const makeMerge = (obj1, obj2) => {
   const clone1 = _.cloneDeep(obj1);
@@ -61,17 +61,12 @@ const formatters = {
   json: JSON.stringify,
 };
 
-const parser = {
-  json: JSON.parse,
-  yaml: YAML.load,
-};
-
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   try{ 
   const data1 = getFile(filepath1);
   const data2 = getFile(filepath2);
-  const object1 = parser[data1.extension](data1.content);
-  const object2 = parser[data2.extension](data2.content);
+  const object1 = parse(data1);
+  const object2 = parse(data2);
   const merged = makeMerge(object1, object2);
   const delta = calculateDelta(object1, object2, merged);
   const formatted = formatters[formatName](delta);
