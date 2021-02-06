@@ -8,6 +8,7 @@ const formatters = {
   stylish: formatToStylish,
   plain: formatToPlain,
   json: JSON.stringify,
+  format: function(delta, formatName) { return this[formatName](delta) },
 };
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
@@ -15,10 +16,11 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     const object1 = parse(getFile(filepath1));
     const object2 = parse(getFile(filepath2));
     const delta = calculateDelta(object1, object2);
-    return formatters[formatName](delta);
+    return delta === null ? 'There is no difference between files.' : formatters.format(delta, formatName);
   } catch (e) {
     console.log(`[ERROR]`);
     console.log(e.message);
+    console.log(e.stack);
   }
 };
 

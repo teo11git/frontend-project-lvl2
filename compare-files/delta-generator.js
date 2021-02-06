@@ -19,7 +19,10 @@ const makeComparsion = (val1, val2, specialValue) => {
   return 'changed';
 };
 
-export default (obj1, obj2) => {
+const calculateDelta = (obj1, obj2) => {
+  if (_.isEqual(obj1, obj2)) {
+    return null;
+  }
   const merged = makeMerge(obj1, obj2);
   const hasNoKey = 'special_no_key';
   return  _.keys(merged).reduce((acc, key) => {
@@ -49,4 +52,4 @@ export default (obj1, obj2) => {
     return acc;    
   }, {});
 };
-
+export default calculateDelta;
