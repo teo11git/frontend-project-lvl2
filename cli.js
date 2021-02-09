@@ -9,13 +9,13 @@ export default () => {
     .arguments('<filepath1> <filepath2>')
     .description('Compares two configuration files and shows a difference.')
     .version('1.0.0')
-      .action((filepath1, filepath2, options) => {
-        // console.log(`filepath: ${filepath1}`);
-        // console.log(`filepath: ${filepath2}`);
-        // console.log(options);
-        const difference = makeDiff(filepath1, filepath2, options.format);
-        console.log(difference);
-      });
+    .action((filepath1, filepath2, options) => {
+      // console.log(`filepath: ${filepath1}`);
+      // console.log(`filepath: ${filepath2}`);
+      // console.log(options);
+      const difference = makeDiff(filepath1, filepath2, options.format);
+      console.log(difference);
+    });
 
   program.parse();
 };

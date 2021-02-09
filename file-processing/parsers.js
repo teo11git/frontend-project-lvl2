@@ -13,4 +13,4 @@ export default ({ extension, content }) => {
     throw new Error('File is not valid!');
   }
   return resultObject;
-}
+};

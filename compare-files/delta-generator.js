@@ -23,12 +23,16 @@ const calculateDelta = (obj1, obj2) => {
   if (_.isEqual(obj1, obj2)) {
     return null;
   }
+  const countSharedKeys = _.intersection(Object.keys(obj1), Object.keys(obj2)).length;
+  if (countSharedKeys === 0 && !_.isEmpty(obj1) && !_.isEmpty(obj2)) {
+    return null;
+  }
   const merged = makeMerge(obj1, obj2);
   const hasNoKey = 'special_no_key';
-  return  _.keys(merged).reduce((acc, key) => {
+  return _.keys(merged).reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : hasNoKey;
     const value2 = _.has(obj2, key) ? obj2[key] : hasNoKey;
-    let state = makeComparsion(value1, value2, hasNoKey);
+    const state = makeComparsion(value1, value2, hasNoKey);
     if (!_.isPlainObject(value1) && !_.isPlainObject(value2)) {
       switch (state) {
         case 'added':
@@ -47,9 +51,9 @@ const calculateDelta = (obj1, obj2) => {
         acc[key] = calculateDelta(obj1[key], obj2[key], merged[key]);
         break;
       default:
-        acc[key] = [`[complex_value]`, state];
+        acc[key] = ['[complex_value]', state];
     }
-    return acc;    
+    return acc;
   }, {});
 };
 export default calculateDelta;
