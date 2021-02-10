@@ -1,14 +1,17 @@
 import YAML from 'js-yaml';
-
-const parser = {
+import has from 'lodash/has';
+const parsers = {
   json: JSON.parse,
   yaml: YAML.load,
 };
 
 export default ({ extension, content }) => {
+  if (!has(parsers, extension)) {
+    throw new Error('Invalid type of file');
+  }
   let resultObject;
   try {
-    resultObject = parser[extension](content);
+    resultObject = parsers[extension](content);
   } catch (err) {
     throw new Error('File is not valid!');
   }
