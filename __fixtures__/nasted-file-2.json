@@ -1,19 +1,14 @@
 {
-  "cage": "trial",
-  "art": false,
-  "climate": {
-    "stake": "trainer"
+  "name0": "value0",
+  "name2": {
+    "name0": {
+      "name0": "value0",
+      "name1": "someValue"
+    },
+    "name1": 786
   },
-  "realty": {
-    "passage": "thaw"
-  },
-  "node": {
-    "sign": {
-      "boat": "boom",
-      "taxi": "cause",
-      "lung": "battery"
-    }
-  },
-  "chorus": "reach",
-  "sharp": 5550
+  "name3": {
+    "name0": "value0",
+    "name1": true
+  }
 }

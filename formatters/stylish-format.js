@@ -23,7 +23,7 @@ const prettify = (data, tab = '  ') => {
       }
       continue;
     }
-    result.push(`${tab}  ${key}: {\n${prettify(data[key], tab += '  ')}${tab}}\n`);
+    result.push(`${tab}  ${key}: {\n${prettify(data[key], `${tab}  `)}${tab}  }\n`);
   }
   return result.join('');
 };

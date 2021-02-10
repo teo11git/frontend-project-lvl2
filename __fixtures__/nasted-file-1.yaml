@@ -1,15 +1,11 @@
 ---
-cage: trial
-art: false
-climate:
-  ptay: me
-  stake: worm
-vote:
-  wagon: sin
-node:
-  sign:
-    boat: boom
-    taxi: heat
-    lung: battery
-sharp: 5460
-area: false
+name0: value0
+name1:
+    name0: value0
+name2:
+  name0:
+    name0: value0
+    name1: value1
+  name1: 687
+name3:
+  name0: value0

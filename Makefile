@@ -8,4 +8,4 @@ lint:
 		npx eslint .
 
 test:
-		npm test --colors
+		npm test
