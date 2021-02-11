@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import runCLI from '../cli.js';
+import runCLI from '../interfaces/cli.js';
 
 runCLI();
