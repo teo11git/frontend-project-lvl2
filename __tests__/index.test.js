@@ -1,9 +1,9 @@
-import { test, expect } from '@jest/globals';
-import genDiff from '../index.js';
+import { test, expect, describe } from '@jest/globals';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import genDiff from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,7 +24,7 @@ describe('should work with...', () => {
     expect(genDiff(file1, file2, 'plain')).toEqual(expectedOutput);
   });
 
-test('input: nasted json, output: json', () => {
+  test('input: nasted json, output: json', () => {
     const file1 = getFixturePath('nasted-file-1.json');
     const file2 = getFixturePath('nasted-file-2.json');
     const expectedOutput = readFile('nasted-diff-ast.json').trim();

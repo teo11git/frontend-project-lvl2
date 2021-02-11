@@ -19,7 +19,7 @@ const prettify = (data, tab = '  ') => {
       switch (state) {
         case 'changed':
           result.push(
-            `${tab}${signMap.removed} ${key}: ${originalValue}\n${tab}${signMap.added} ${key}: ${newValue}\n`
+            `${tab}${signMap.removed} ${key}: ${originalValue}\n${tab}${signMap.added} ${key}: ${newValue}\n`,
           );
           break;
         default:

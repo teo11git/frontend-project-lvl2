@@ -1,10 +1,10 @@
-import formatToStylish from './stylish-format.js';
-import formatToPlain from './plain-format.js';
+import formatToStylish from './stylish.js';
+import formatToPlain from './plain.js';
 
 const mapping = {
   json: JSON.stringify,
   stylish: formatToStylish,
-  plain: formatToPlain
+  plain: formatToPlain,
 };
 
 export default (typeOfFormat) => mapping[typeOfFormat];

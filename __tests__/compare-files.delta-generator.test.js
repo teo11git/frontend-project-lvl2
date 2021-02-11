@@ -1,4 +1,4 @@
-import { test, expect } from '@jest/globals';
+import { test, expect, describe } from '@jest/globals';
 import cloneDeep from 'lodash/cloneDeep';
 import makeDelta from '../compare-files/delta-generator.js';
 
