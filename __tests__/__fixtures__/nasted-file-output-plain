@@ -1,0 +1,4 @@
+Property name1 was removed
+Property name2.name0.name1 was updated. From value1 to someValue
+Property name2.name1 was updated. From 687 to 786
+Property name3.name1 was added with value: true

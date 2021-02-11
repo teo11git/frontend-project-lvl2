@@ -1,0 +1,7 @@
+{
+  "name0":["value0","stay"],
+  "name1":["value1","removed"],
+  "name2":["value2","someValue","changed"],
+  "name3":[55,78,"changed"],
+  "name4":[false,"added"]
+}

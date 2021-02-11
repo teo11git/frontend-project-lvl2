@@ -5,7 +5,7 @@ import readFile from '../file-processing/file-reader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const relativePath = `${__dirname}/../__fixtures__/example-file1.txt`;
+const relativePath = `${__dirname}/__fixtures__/example-file1.txt`;
 const absolutePath = path.resolve(relativePath);
 
 test('should read file by relative path', () => {

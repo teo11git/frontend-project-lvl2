@@ -16,7 +16,11 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     const object1 = parse(getFile(filepath1));
     const object2 = parse(getFile(filepath2));
     const delta = calculateDelta(object1, object2);
-    return delta === null ? 'There is no difference between files.' : formatters.format(delta, formatName);
+    return (
+      delta === null
+      ? 'There is no difference between files, or files don\'t have common names.'
+      : formatters.format(delta, formatName).trim()
+    );
   } catch (e) {
     console.log('[ERROR]');
     console.log(e.message);
