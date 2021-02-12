@@ -19,7 +19,7 @@ const calculateDelta = (obj1, obj2) => {
     const value1 = _.has(obj1, key) ? obj1[key] : hasNoKey;
     const value2 = _.has(obj2, key) ? obj2[key] : hasNoKey;
     const state = makeComparsion(value1, value2, hasNoKey);
-    if (_.isPlainObject(value1) || _.isPlainObject(value2)) {
+    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
       if (state === 'changed') {
         acc[key] = calculateDelta(obj1[key], obj2[key]);
       } else { 
