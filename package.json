@@ -4,7 +4,7 @@
   "description": "[![Actions Status](https://github.com/teo11git/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/teo11git/frontend-project-lvl2/actions)",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
