@@ -10,7 +10,18 @@ const mapping = {
   stay: (tab, key, originalValue) => 
     `${tab}  ${key}: ${originalValue}\n`,
 };
-
+/*
+const renderValue = (tab, item, originalValue, newValue) => {
+  if (_.isPlainObject(value)) {
+    return  `${tab}  ${key}: {\n${prettify(data[key], `${tab}    `)}${tab}  }\n`  }
+  return mapping[state](
+    tab,
+    key,
+    item[0],
+    
+  );
+}
+*/
 const prettify = (data, tab = '  ') => {
   // console.log(data);
   return Object.entries(data).map(([key, value]) => {
