@@ -15,7 +15,7 @@ const makeComparsion = (val1, val2, specialValue) => {
 
 const calculateDelta = (obj1, obj2) => {
   const hasNoKey = 'special_no_key';
-  return _.union(Object.keys(obj1), Object.keys(obj2)).reduce((acc, key) => {
+  return _.union(Object.keys(obj2), Object.keys(obj1)).reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : hasNoKey;
     const value2 = _.has(obj2, key) ? obj2[key] : hasNoKey;
     const state = makeComparsion(value1, value2, hasNoKey);
