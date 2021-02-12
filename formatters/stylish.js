@@ -16,8 +16,6 @@ const prettify = (data, tab = '  ') => {
     if (_.isPlainObject(value)) {
       return `${tab}  ${key}: {\n${prettify(data[key], `${tab}  `)}${tab}  }\n`;
     }
-    const originalValue = value[0];
-    const newValue = value.length === 3 ? value[1] : undefined;
     const state = value[value.length - 1];
     return mapping[state](
       tab,
