@@ -6,6 +6,10 @@ import formatTo from './formatters/index.js';
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(getFile(filepath1));
   const object2 = parse(getFile(filepath2));
+  console.log('-------------------');
+  console.log(object1);
+  console.log('---------------------');
+  console.log(object2);
   const deltaAST = calculateDelta(object1, object2);
   return (
     deltaAST === null
