@@ -12,10 +12,10 @@ const mapping = {
 };
 
 const prettify = (data, tab = '    ') => {
-  console.log(data);
+  // console.log(data);
   return Object.entries(data).map(([key, value]) => {
-    console.log(`>>key: ${key}`);
-    console.log(`>>value: ${value}`);
+    // console.log(`>>key: ${key}`);
+    // console.log(`>>value: ${value}`);
     if (_.isPlainObject(value)) {
       return `${tab}  ${key}: {\n${prettify(data[key], `${tab}    `)}${tab}  }\n`;
     }
