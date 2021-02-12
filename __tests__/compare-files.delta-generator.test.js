@@ -30,20 +30,6 @@ describe('Simple workig cases', () => {
   });
 });
 
-describe('Should return null if object is equal or they has not shared keys', () => {
-  test('should return null. Objects are equal', () => {
-    const obj1 = { name: 'value' };
-    const obj2 = { name: 'value' };
-    expect(makeDelta(obj1, obj2)).toBeNull();
-  });
-
-  test('should return null if objects has no equal keys', () => {
-    const obj1 = { name: 'value' };
-    const obj2 = { someName: 'value' };
-    expect(makeDelta(obj1, obj2)).toBeNull();
-  });
-});
-
 test('should work with plain objects', () => {
   const obj1 = {
     firstName: 'value',

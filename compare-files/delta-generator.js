@@ -14,13 +14,6 @@ const makeComparsion = (val1, val2, specialValue) => {
 };
 
 const calculateDelta = (obj1, obj2) => {
-  if (_.isEqual(obj1, obj2)) {
-    return null;
-  }
-  const countCommonKeys = _.intersection(Object.keys(obj1), Object.keys(obj2)).length;
-  if (countCommonKeys === 0 && !_.isEmpty(obj1) && !_.isEmpty(obj2)) {
-    return null;
-  }
   const hasNoKey = 'special_no_key';
   return _.union(Object.keys(obj1), Object.keys(obj2)).reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : hasNoKey;
