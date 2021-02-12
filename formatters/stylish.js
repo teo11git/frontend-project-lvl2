@@ -11,7 +11,7 @@ const mapping = {
     `${tab}  ${key}: ${originalValue}\n`,
 };
 
-const prettify = (data, tab = '    ') => {
+const prettify = (data, tab = '  ') => {
   // console.log(data);
   return Object.entries(data).map(([key, value]) => {
     // console.log(`>>key: ${key}`);
