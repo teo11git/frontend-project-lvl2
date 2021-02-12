@@ -31,3 +31,14 @@ jobs:
     - name: Run tests
       run: |
         make test
+        
+    - name: Code Climate Coverage Action
+      # You may pin to the exact commit or the version.
+      # uses: paambaati/codeclimate-action@7bcf9e73c0ee77d178e72c0ec69f1a99c1afc1f3
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        # Coverage command to execute
+        coverageCommand: make test-coverage 
+        debug: true
