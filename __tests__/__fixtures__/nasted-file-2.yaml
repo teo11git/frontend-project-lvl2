@@ -1,10 +1,20 @@
 ---
-name0: value0
-name2:
-  name0:
-    name0: value0
-    name1: someValue
-  name1: 786
-name3:
+name1: false
+name2: 50
+name3: addedKey
+name4: value4
+name5:
+- 50
+- true
+- value5
+name6:
   name0: value0
-  name1: true
+  name1:
+    dog: wov wov
+    cat: miu
+  name2:
+    name0: value0
+    name1: value1
+name7: value7
+name8:
+

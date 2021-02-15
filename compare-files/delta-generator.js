@@ -31,15 +31,14 @@ const calculateDelta = (obj1, obj2) => {
     const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
     const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
     acc[key] = makeObject(
-     state: makeComparsion(val1, val2, specialValue),
+     makeComparsion(val1, val2, specialValue),
      value1,
      value2,
-     children: isModifiedObjects(value1, value2)
-               ? calculateDelta(obj1[key], obj2[key])
-               : {}
+     isModifiedObjects(value1, value2)
+      ? calculateDelta(obj1[key], obj2[key])
+      : null
     );
     return acc
-     }, {});
-    }
+  }, {});
 };
 export default calculateDelta;
