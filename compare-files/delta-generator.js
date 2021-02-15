@@ -12,33 +12,34 @@ const makeComparsion = (val1, val2, specialValue) => {
   }
   return 'changed';
 };
+
 const makeObject = (state, oldValue, newValue, children) => {
   return {state, oldValue, newValue, children};
 };
 
+const isModifiedObjects = (value1, value2) => {
+  if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
+    return _.intersection(Object.keys(value1), Object.keys(value2))
+            .length > 0;
+  }
+  return false;  
+};
 
 const calculateDelta = (obj1, obj2) => {
-  const specialValue = 'special_no_key';
+  const specialValue = 'special_no_value';
   return _.union(Object.keys(obj1), Object.keys(obj2)).reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
     const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
-    const state = makeComparsion(value1, value2, specialValue);
-    if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-      if (state === 'changed') {
-        acc[key] = calculateDelta(obj1[key], obj2[key]);
-      } else { 
-      acc[key] = [value1, state];
-      }
-      return acc;
+    acc[key] = makeObject(
+     state: makeComparsion(val1, val2, specialValue),
+     value1,
+     value2,
+     children: isModifiedObjects(value1, value2)
+               ? calculateDelta(obj1[key], obj2[key])
+               : {}
+    );
+    return acc
+     }, {});
     }
-    if (state === 'added') {
-      acc[key] = [value2, state];
-    } else if (state === 'changed') {
-      acc[key] = [value1, value2, state];
-    } else {
-      acc[key] = [value1, state];
-    }
-    return acc;
-  }, {});
 };
 export default calculateDelta;
