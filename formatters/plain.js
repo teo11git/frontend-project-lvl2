@@ -12,8 +12,8 @@ const mapping = {
 
 const prettify = (data, pathToProp = '') => {
   return Object.entries(data).map(([key, value]) => {
-    console.log(`>>key: ${key}`);
-    console.log(`>>value: ${value}`);
+    //console.log(`>>key: ${key}`);
+    //console.log(`>>value: ${value}`);
     if (_.isPlainObject(value)) {
       return `${prettify(data[key], `${pathToProp}${key}.`)}`;
     }

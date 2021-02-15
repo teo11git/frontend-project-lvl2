@@ -2,16 +2,16 @@
     name0: value0
   - name1: [complex_value]
     name2: {
-      name0: {
-        name0: value0
-      - name1: value1
-      + name1: someValue
-      }
-    - name1: 687
-    + name1: 786
+        name0: {
+            name0: value0
+          - name1: value1
+          + name1: someValue
+        }
+      - name1: 687
+      + name1: 786
     }
     name3: {
-      name0: value0
-    + name1: true
+        name0: value0
+      + name1: true
     }
 }
