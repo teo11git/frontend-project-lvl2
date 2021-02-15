@@ -12,7 +12,7 @@
     },
     "name2": {
       "name0": "value0",
-      "name1": "value1"
+      "name1": ["hello", "world"]
     }
 },
   "name7": "value7",
