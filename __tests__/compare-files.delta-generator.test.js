@@ -15,9 +15,6 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 test("should work with nasted data", () => {
   const data1 = JSON.parse(readFile('nasted-file-1.json'));
   const data2 = JSON.parse(readFile('nasted-file-2.json'));
-  // console.log('-----------------------');
-  // console.log(data1);
-  // console.log(data2);
   const expectedAST = JSON.parse(readFile('nasted-ast.json'));
   expect(makeDelta(data1, data2)).toEqual(expectedAST);
 });

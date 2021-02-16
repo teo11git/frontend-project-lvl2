@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
-const makeComparsion = (val1, val2, specialValue) => {
+const specialValue = 'special_no_value';
+
+const makeComparsion = (val1, val2) => {
   if (val1 === specialValue) {
     return 'added';
   }
@@ -19,7 +21,6 @@ const makeObject = (state, value, newValue, children) => {
 
 const isModifiedObjects = (value1, value2) => {
   if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-    // console.log('found Object!!!');
     return _.intersection(Object.keys(value1), Object.keys(value2))
             .length > 0;
   }
@@ -27,10 +28,6 @@ const isModifiedObjects = (value1, value2) => {
 };
 
 const calculateDelta = (obj1, obj2) => {
-  // console.log("----------------------");
-  // console.log(obj1);
-  // console.log(obj2);
-  const specialValue = 'special_no_value';
   return _.union(Object.keys(obj1), Object.keys(obj2)).reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
     const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
@@ -42,8 +39,6 @@ const calculateDelta = (obj1, obj2) => {
         calculateDelta(obj1[key], obj2[key])
       );
     } else {
-      // console.log(value1);
-      // console.log(value2);
       acc[key] = makeObject(
         makeComparsion(value1, value2, specialValue),
         value1,
