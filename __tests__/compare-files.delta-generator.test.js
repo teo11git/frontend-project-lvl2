@@ -1,6 +1,6 @@
 import { test, expect, describe } from '@jest/globals';
 import cloneDeep from 'lodash/cloneDeep';
-import makeDelta from '../compare-files/delta-generator.js';
+import makeDelta from '../compare-files/delta-fn.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';

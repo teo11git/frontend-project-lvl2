@@ -1,41 +1,46 @@
 import _ from 'lodash';
 
+const renderValue = (value, tab) => {
+  if (_.isPlainObject(value)){
+    return Object.keys(value).map((key) => {
+      const item = value[key];
+      if (_.isPlainObject(item)) {
+        return `${renderValue(item, `${tab}    `)}`;
+      }
+      return ` {\n${tab}    ${key}: ${item}\n${tab}    }`;
+    }).join('');
+  }
+  if (_.isArray(value)) {
+    return JSON.stringify(value);
+  }
+  return `${value}`;
+}
+
 const mapping = {
-  added: (tab, key, originalValue) => 
-    `${tab}+ ${key}: ${originalValue}\n`,
+  added: (tab, key, originalValue, newValue) => 
+    `${tab}+ ${key}: ${renderValue(newValue, tab)}\n`,
   removed: (tab, key, originalValue) => 
-    `${tab}- ${key}: ${originalValue}\n`,
+    `${tab}- ${key}: ${renderValue(originalValue, tab)}\n`,
   changed: (tab, key, originalValue, newValue) => 
-    `${tab}- ${key}: ${originalValue}\n${tab}+ ${key}: ${newValue}\n`,
+    `${tab}- ${key}: ${renderValue(originalValue, tab)}\n${tab}+ ${key}: ${renderValue(newValue, tab)}\n`,
   stay: (tab, key, originalValue) => 
     `${tab}  ${key}: ${originalValue}\n`,
 };
-/*
-const renderValue = (tab, item, originalValue, newValue) => {
-  if (_.isPlainObject(value)) {
-    return  `${tab}  ${key}: {\n${prettify(data[key], `${tab}    `)}${tab}  }\n`  }
-  return mapping[state](
-    tab,
-    key,
-    item[0],
-    
-  );
-}
-*/
+
 const prettify = (data, tab = '  ') => {
   // console.log(data);
-  return Object.entries(data).map(([key, value]) => {
+  return Object.keys(data).map((key) => {
     // console.log(`>>key: ${key}`);
     // console.log(`>>value: ${value}`);
-    if (_.isPlainObject(value)) {
-      return `${tab}  ${key}: {\n${prettify(data[key], `${tab}    `)}${tab}  }\n`;
+    const item = data[key];
+    if (item.children !== null) {
+      return `${tab}  ${key}: {\n${prettify(item.children, `${tab}    `)}${tab}  }\n`;
     }
-    const state = value[value.length - 1];
-    return mapping[state](
+    return mapping[item.state](
       tab,
       key,
-      value[0],
-      value.length === 3 ? value[1] : undefined
+      item.value,
+      item.newValue
     );
   }).join('');
 };

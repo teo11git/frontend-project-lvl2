@@ -1,4 +1,4 @@
-import calculateDelta from './compare-files/delta-generator.js';
+import calculateDelta from './compare-files/delta-fn.js';
 import parse from './file-processing/parsers.js';
 import getFile from './file-processing/file-reader.js';
 import formatTo from './formatters/index.js';
