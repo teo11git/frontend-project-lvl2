@@ -10,7 +10,7 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   console.log('-----------------');
   console.log(JSON.stringify(object1, null, ' '));
   console.log('-----------------');
-  console.log(JSON.stringify(object1, null, ' '));
+  console.log(JSON.stringify(object2, null, ' '));
   if (_.isEmpty(object1) || _.isEmpty(object2)) {
     return null;
   }
