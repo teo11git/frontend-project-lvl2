@@ -8,12 +8,11 @@ const mapping = {
 };
 const renderer = (item) => (
   (_.isObject(item) || _.isArray(item))
-  ? `[complex_value]`
-  : item
+    ? '[complex_value]'
+    : item
 );
 
 const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) => {
-  
   if (v.children !== null) {
     return `${prettify(v.children, `${pathToProp}${k}.`)}`;
   }
@@ -21,7 +20,7 @@ const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) =>
     pathToProp,
     k,
     renderer(v.value),
-    renderer(v.newValue)
+    renderer(v.newValue),
   );
 }).join('');
 export default prettify;

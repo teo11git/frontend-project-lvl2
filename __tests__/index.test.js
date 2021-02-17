@@ -25,18 +25,18 @@ test('Should work with yaml and json file in plain mode', () => {
 
 describe('should return null in the following cases', () => {
   test('should return null, when object is equal', () => {
-  const file1 = getFixturePath('nasted-file-1.json');
-  const file2 = getFixturePath('nasted-file-1.json');
-  expect(showDiff(file1, file2)).toBeNull();
+    const file1 = getFixturePath('nasted-file-1.json');
+    const file2 = getFixturePath('nasted-file-1.json');
+    expect(showDiff(file1, file2)).toBeNull();
   });
   test('return null, when object is empty', () => {
-  const file1 = getFixturePath('nasted-file-1.json');
-  const nullFile = getFixturePath('null.json');
-  expect(showDiff(nullFile, file1)).toBeNull();
+    const file1 = getFixturePath('nasted-file-1.json');
+    const nullFile = getFixturePath('null.json');
+    expect(showDiff(nullFile, file1)).toBeNull();
   });
   test('return null, when object don\'t have common keys', () => {
-  const file1 = getFixturePath('nasted-file-1.json');
-  const file2 = getFixturePath('sample.json');
-  expect(showDiff(file1, file2)).toBeNull();
+    const file1 = getFixturePath('nasted-file-1.json');
+    const file2 = getFixturePath('sample.json');
+    expect(showDiff(file1, file2)).toBeNull();
   });
 });

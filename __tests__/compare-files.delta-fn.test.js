@@ -1,11 +1,9 @@
-import { test, expect, describe } from '@jest/globals';
-import cloneDeep from 'lodash/cloneDeep';
+import { test, expect } from '@jest/globals';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 import makeDelta from '../compare-files/delta-fn.js';
-import genDiff from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
