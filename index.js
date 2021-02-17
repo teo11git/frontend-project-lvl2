@@ -7,6 +7,9 @@ import formatTo from './formatters/index.js';
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(getFile(filepath1));
   const object2 = parse(getFile(filepath2));
+  if (_.isEmpty(object1) || _.isEmpty(object2)) {
+    return null;
+  }
   if (_.isEqual(object1, object2)) {
     return null;
   }
@@ -14,10 +17,6 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   if (countCommonKeys === 0) {
     return null;
   }
-  console.log('-------------------');
-  console.log(object1);
-  console.log('---------------------');
-  console.log(object2);
   const deltaAST = calculateDelta(object1, object2);
   return formatTo(formatName)(deltaAST).trim();
 };

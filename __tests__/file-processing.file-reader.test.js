@@ -5,9 +5,8 @@ import readFile from '../file-processing/file-reader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const relativePath = `${__dirname}/../__tests_/__fixtures__/example-file.txt`;
+const relativePath = `${__dirname}/../__tests__/__fixtures__/example-file.txt`;
 const absolutePath = path.resolve(relativePath);
-console.log(absolutePath);
 
 test('should read file by relative path', () => {
   expect(readFile(relativePath)).toEqual({ content: 'Hello!', extension: 'txt' });

@@ -28,6 +28,7 @@ const isModifiedObjects = (value1, value2) => {
 };
 
 const calculateDelta = (obj1, obj2) => _.union(Object.keys(obj1), Object.keys(obj2))
+  .sort()
   .reduce((acc, key) => {
   const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
   const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
