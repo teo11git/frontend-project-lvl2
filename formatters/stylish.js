@@ -1,48 +1,41 @@
 import _ from 'lodash';
 
-const renderValue = (value, tab) => {
-  if (_.isPlainObject(value)){
-    return Object.keys(value).map((key) => {
-      const item = value[key];
-      if (_.isPlainObject(item)) {
-        return `${renderValue(item, `${tab}    `)}`;
+const makeTabs = (indent) => `${' '.repeat(indent)}`;
+
+const renderer = (item, indent) => {
+  if (_.isPlainObject(item)) {
+    const result = Object.entries(item).map(([key, value]) => {
+      if (_.isPlainObject(value)) {
+        return `${renderer(item[key], indent + 4)}`;
       }
-      return ` {\n${tab}    ${key}: ${item}\n${tab}    }`;
+      return `${makeTabs(indent + 4)}  ${key}: ${value}\n`;
     }).join('');
+    return `{\n${result}${makeTabs(indent)}  }`;
   }
-  if (_.isArray(value)) {
-    return JSON.stringify(value);
+  if (_.isArray(item)) {
+    return `[${item.join(', ')}]`;
   }
-  return `${value}`;
-}
+  return `${item}`;
+};
 
 const mapping = {
-  added: (tab, key, originalValue, newValue) => 
-    `${tab}+ ${key}: ${renderValue(newValue, tab)}\n`,
-  removed: (tab, key, originalValue) => 
-    `${tab}- ${key}: ${renderValue(originalValue, tab)}\n`,
-  changed: (tab, key, originalValue, newValue) => 
-    `${tab}- ${key}: ${renderValue(originalValue, tab)}\n${tab}+ ${key}: ${renderValue(newValue, tab)}\n`,
-  stay: (tab, key, originalValue) => 
-    `${tab}  ${key}: ${originalValue}\n`,
+  added: (indent, key, value, newValue) => `${makeTabs(indent)}+ ${key}: ${newValue}\n`,
+  removed: (indent, key, value) => `${makeTabs(indent)}- ${key}: ${value}\n`,
+  changed: (indent, key, value, newValue) => `${makeTabs(indent)}- ${key}: ${value}\n${makeTabs(indent)}+ ${key}: ${newValue}\n`,
+  stay: (indent, key, value) => `${makeTabs(indent)}  ${key}: ${value}\n`,
 };
 
-const prettify = (data, tab = '  ') => {
-  // console.log(data);
-  return Object.keys(data).map((key) => {
-    // console.log(`>>key: ${key}`);
-    // console.log(`>>value: ${value}`);
-    const item = data[key];
-    if (item.children !== null) {
-      return `${tab}  ${key}: {\n${prettify(item.children, `${tab}    `)}${tab}  }\n`;
-    }
-    return mapping[item.state](
-      tab,
-      key,
-      item.value,
-      item.newValue
-    );
-  }).join('');
-};
+const prettify = (data, indent = 2) => Object.keys(data).map((key) => {
+  const item = data[key];
+  if (item.children !== null) {
+    return `${makeTabs(indent)}  ${key}: {\n${prettify(item.children, indent + 4)}${makeTabs(indent)}  }\n`;
+  }
+  return mapping[item.state](
+    indent,
+    key,
+    renderer(item.value, indent),
+    renderer(item.newValue, indent),
+  );
+}).join('');
 
 export default (data) => `{\n${prettify(data).slice(0, -1)}\n}`;

@@ -1,8 +1,8 @@
+import _ from 'lodash';
 import calculateDelta from './compare-files/delta-fn.js';
 import parse from './file-processing/parsers.js';
 import getFile from './file-processing/file-reader.js';
 import formatTo from './formatters/index.js';
-import _ from 'lodash';
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(getFile(filepath1));

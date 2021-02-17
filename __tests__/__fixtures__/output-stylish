@@ -5,8 +5,8 @@
     name2: 50
   + name3: addedKey
     name4: value4
-  - name5: [50, true, "toChange"]
-  + name5: [50, true, "value5"]
+  - name5: [50, true, toChange]
+  + name5: [50, true, value5]
     name6: {
         name0: value0
       + name1: {
@@ -15,8 +15,8 @@
         }
         name2: {
             name0: value0
-          - name1: teoChange
-          + name1: ["hello", "world"]
+          - name1: toChange
+          + name1: [hello, world]
         }
     }
     name7: value7
