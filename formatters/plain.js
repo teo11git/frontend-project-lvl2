@@ -1,24 +1,27 @@
 import _ from 'lodash';
 
 const mapping = {
-  added: (pathToProp, key, originalValue) => `Property ${pathToProp}${key} was added with value: ${originalValue}\n`,
+  added: (pathToProp, key, originalValue, newValue) => `Property ${pathToProp}${key} was added with value: ${newValue}\n`,
   removed: (pathToProp, key) => `Property ${pathToProp}${key} was removed\n`,
   changed: (pathToProp, key, originalValue, newValue) => `Property ${pathToProp}${key} was updated. From ${originalValue} to ${newValue}\n`,
   stay: () => '',
 };
+const renderer = (item) => (
+  (_.isObject(item) || _.isArray(item))
+  ? `[complex_value]`
+  : item
+);
 
-const prettify = (data, pathToProp = '') => Object.entries(data).map(([key, value]) => {
-  // console.log(`>>key: ${key}`);
-  // console.log(`>>value: ${value}`);
-  if (_.isPlainObject(value)) {
-    return `${prettify(data[key], `${pathToProp}${key}.`)}`;
+const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) => {
+  
+  if (v.children !== null) {
+    return `${prettify(v.children, `${pathToProp}${k}.`)}`;
   }
-  const state = value[value.length - 1];
-  return mapping[state](
+  return mapping[v.state](
     pathToProp,
-    key,
-    value[0],
-    value.length === 3 ? value[1] : undefined,
+    k,
+    renderer(v.value),
+    renderer(v.newValue)
   );
 }).join('');
 export default prettify;

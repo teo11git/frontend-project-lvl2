@@ -8,11 +8,11 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(getFile(filepath1));
   const object2 = parse(getFile(filepath2));
   if (_.isEqual(object1, object2)) {
-    return 'There is no differense between files';
+    return null;
   }
   const countCommonKeys = _.intersection(Object.keys(object1), Object.keys(object2)).length;
   if (countCommonKeys === 0) {
-    return 'Files do\'t have common keys';
+    return null;
   }
   console.log('-------------------');
   console.log(object1);

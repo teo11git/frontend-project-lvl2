@@ -25,8 +25,7 @@ const mapping = {
   stay: (indent, key, value) => `${makeTabs(indent)}  ${key}: ${value}\n`,
 };
 
-const prettify = (data, indent = 2) => Object.keys(data).map((key) => {
-  const item = data[key];
+const prettify = (data, indent = 2) => Object.entries(data).map(([key, item]) => {
   if (item.children !== null) {
     return `${makeTabs(indent)}  ${key}: {\n${prettify(item.children, indent + 4)}${makeTabs(indent)}  }\n`;
   }
