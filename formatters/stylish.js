@@ -2,14 +2,12 @@ import _ from 'lodash';
 
 const makeTabs = (indent) => `${' '.repeat(indent)}`;
 
-const renderObject = (item, indent) => {
-  return Object.entries(item).map(([key, value]) => {
-    if (_.isPlainObject(value)) {
-      return `${makeTabs(indent)}  ${key}: {\n${renderObject(item[key], indent + 4)}${makeTabs(indent)}  }\n`;
-    }
-      return `${makeTabs(indent)}  ${key}: ${value}\n`;
-    }).join('');
-};
+const renderObject = (item, indent) => Object.entries(item).map(([key, value]) => {
+  if (_.isPlainObject(value)) {
+    return `${makeTabs(indent)}  ${key}: {\n${renderObject(item[key], indent + 4)}${makeTabs(indent)}  }\n`;
+  }
+  return `${makeTabs(indent)}  ${key}: ${value}\n`;
+}).join('');
 
 const renderer = (item, indent) => {
   if (_.isPlainObject(item)) {
