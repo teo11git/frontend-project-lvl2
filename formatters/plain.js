@@ -1,9 +1,9 @@
 import _ from 'lodash';
 
 const mapping = {
-  added: (pathToProp, key, originalValue, newValue) => `Property ${pathToProp}${key} was added with value: ${newValue}\n`,
-  removed: (pathToProp, key) => `Property ${pathToProp}${key} was removed\n`,
-  changed: (pathToProp, key, originalValue, newValue) => `Property ${pathToProp}${key} was updated. From ${originalValue} to ${newValue}\n`,
+  added: (pathToProp, key, originalValue, newValue) => `Property '${pathToProp}${key}' was added with value: ${newValue}\n`,
+  removed: (pathToProp, key) => `Property '${pathToProp}${key}' was removed\n`,
+  changed: (pathToProp, key, originalValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${originalValue} to ${newValue}\n`,
   stay: () => '',
 };
 const renderer = (item) => (
