@@ -8,14 +8,10 @@ const mapping = {
 };
 const renderer = (item) => {
   if (_.isObject(item) || _.isArray(item)) {
-    return '[complex_value]';
+    return '[complex value]';
   }
   if (_.isString(item)) {
-    return (
-      item === ''
-      ? ''
-      : `'${item}'`
-    );
+    return `'${item}'`;
   }
   return item;
 };
