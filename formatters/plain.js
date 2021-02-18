@@ -6,11 +6,19 @@ const mapping = {
   changed: (pathToProp, key, originalValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${originalValue} to ${newValue}\n`,
   stay: () => '',
 };
-const renderer = (item) => (
-  (_.isObject(item) || _.isArray(item))
-    ? '[complex_value]'
-    : item
-);
+const renderer = (item) => {
+  if (_.isObject(item) || _.isArray(item)) {
+    return '[complex_value]';
+  }
+  if (_.isString(item)) {
+    return (
+      item === ''
+      ? ''
+      : `'${item}'`
+    );
+  }
+  return item;
+};
 
 const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) => {
   if (v.children !== null) {
