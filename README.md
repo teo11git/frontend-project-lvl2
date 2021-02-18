@@ -13,7 +13,6 @@ The output can be in three types: "plain", "stylish" and json.
 ```
 git clone https://github.com/teo11git/frontend-project-lvl1.git
 cd frontend-project-lvl1
-make publish
 npm link
 ```
 ## Usage
