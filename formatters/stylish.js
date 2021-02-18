@@ -13,7 +13,7 @@ const renderObject = (item, indent) => {
 
 const renderer = (item, indent) => {
   if (_.isPlainObject(item)) {
-    return `{\n${renderObject(item, indent).slice(0, -1)}  ${makeTabs(indent)}`;
+    return `{\n${renderObject(item, indent + 4).slice(0, -1)} \n${makeTabs(indent)}  }`;
   }
   if (_.isArray(item)) {
     return `[${item.join(', ')}]`;
