@@ -26,7 +26,7 @@ test('Second case. Files from Hexlet', () => {
   const filepath1 = getFixturePath('file3.json');
   const filepath2 = getFixturePath('file4.yml');
   const expectedOutput = readFile('output2').trim();
-  expect(showDiff(filepath1, filepath2)).toEqual(expectedOutput)
+  expect(showDiff(filepath1, filepath2)).toEqual(expectedOutput);
 });
 
 describe('should return null in the following cases', () => {

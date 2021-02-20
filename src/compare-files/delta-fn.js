@@ -33,20 +33,24 @@ const calculateDelta = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(
     const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
     const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
     if (isModifiedObjects(obj1[key], obj2[key])) {
-      acc[key] = makeObject(
-        'changed',
-        '[Object]',
-        '[Object]',
-        calculateDelta(obj1[key], obj2[key]),
-      );
-    } else {
-      acc[key] = makeObject(
+      return {
+        ...acc,
+        [key]: makeObject(
+          'changed',
+          '[Object]',
+          '[Object]',
+          calculateDelta(obj1[key], obj2[key]),
+        ),
+      };
+    }
+    return {
+      ...acc,
+      [key]: makeObject(
         makeComparsion(value1, value2, specialValue),
         value1,
         value2,
         null,
-      );
-    }
-    return acc;
+      ),
+    };
   }, {});
 export default calculateDelta;
