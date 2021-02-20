@@ -19,13 +19,15 @@ const makeObject = (state, value, newValue, children) => ({
   state, value, newValue, children,
 });
 
-const isModifiedObjects = (value1, value2) => {
-  if (_.isPlainObject(value1) && _.isPlainObject(value2)) {
-    return _.intersection(Object.keys(value1), Object.keys(value2))
-      .length > 0;
-  }
-  return false;
-};
+const isModifiedObjects = (value1, value2) => (
+  (_.isPlainObject(value1) && _.isPlainObject(value2))
+    && (
+      _.intersection(
+        Object.keys(value1),
+        Object.keys(value2),
+      ).length > 0
+    )
+);
 
 const calculateDelta = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(obj2)))
   .sortBy()
