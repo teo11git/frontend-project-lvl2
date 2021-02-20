@@ -3,19 +3,32 @@
 #plugins:
   # https://github.com/jest-community/eslint-plugin-jest
   # - jest
+plugins:
+  - jest
+  - fp
   # https://eslint.org/docs/user-guide/configuring#specifying-environments
 env:
+  jest: true
   node: true
   es2020: true
 
 extends:
   - 'airbnb-base'
+  - 'plugin:jest/recommended'
+  - 'plugin:fp/recommended'
 
 parserOptions:
-  ecmaVersion: 11
+  ecmaVersion: 2020
   sourceType: module
 
 rules:
   no-console: 0
-  import/extensions: [0, { <js>: "always" }] 
+  import/extensions: 0 # FIXME: remove when rule will be adjusted for nodejs version 
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  fp/no-nil: 0
+  fp/no-unused-expression: 0
+  fp/no-throw: 0
+  fp/no-mutating-methods:
+    - error
+    - allowedObjects:
+      - "_"
