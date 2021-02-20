@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import readFile from './src/file-processing/file-reader.js';
+import readFile from '../src/file-processing/file-reader.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
