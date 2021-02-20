@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import commander from 'commander';
-import makeDiff from '../index.js';
+import makeDiff from '../src/index.js';
 
 const runCLI = () => {
   const { program } = commander;
