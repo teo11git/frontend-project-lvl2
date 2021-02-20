@@ -3,7 +3,7 @@ import { test, expect } from '@jest/globals';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import makeDelta from '../compare-files/delta-fn.js';
+import makeDelta from './src/compare-files/delta-fn.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
