@@ -11,11 +11,11 @@ const getFixturePath = (filename) => path.join(__dirname, '__fixtures__', filena
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test.each`
-fileName1        | fileName2      | fileNameOutput | extension | outputFormat
-${'before.json'} |${'after.json'} |${'stylish'}    |${'json'}  |${'stylish'}
-${'before.json'} |${'after.json'} |${'plain'}      |${'json'}  |${'plain'}
-${'before.json'} |${'after.json'} |${'json'}       |${'json'}  |${'json'}
-${'before.yml'}  |${'after.yml'}  |${'stylish'}    |${'yml'}   |${'stylish'}
+fileName1        | fileName2      | fileNameOutput        | extension | outputFormat
+${'before.json'} |${'after.json'} |${'output_stylish'}    |${'json'}  |${'stylish'}
+${'before.json'} |${'after.json'} |${'output_plain'}      |${'json'}  |${'plain'}
+${'before.json'} |${'after.json'} |${'output_json'}       |${'json'}  |${'json'}
+${'before.yml'}  |${'after.yml'}  |${'output_stylish'}    |${'yml'}   |${'stylish'}
 `('Should compare two $extension files. Output format is $outputFormat', ({
   fileName1, fileName2, fileNameOutput, outputFormat,
 }) => {
