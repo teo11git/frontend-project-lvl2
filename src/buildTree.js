@@ -29,7 +29,7 @@ const isModifiedObjects = (value1, value2) => (
     )
 );
 
-const calculateDelta = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(obj2)))
+const buildTree = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(obj2)))
   .sortBy()
   .reduce((acc, key) => {
     const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
@@ -41,7 +41,7 @@ const calculateDelta = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(
           'changed',
           '[Object]',
           '[Object]',
-          calculateDelta(obj1[key], obj2[key]),
+          buildTree(obj1[key], obj2[key]),
         ),
       };
     }
@@ -55,4 +55,4 @@ const calculateDelta = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(
       ),
     };
   }, {});
-export default calculateDelta;
+export default buildTree;
