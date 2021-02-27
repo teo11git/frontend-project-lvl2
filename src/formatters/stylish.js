@@ -20,10 +20,10 @@ const renderer = (item, indent) => {
 };
 
 const mapping = {
-  added: (indent, key, value, newValue) => `${makeTabs(indent)}+ ${key}: ${newValue}\n`,
-  removed: (indent, key, value) => `${makeTabs(indent)}- ${key}: ${value}\n`,
-  changed: (indent, key, value, newValue) => `${makeTabs(indent)}- ${key}: ${value}\n${makeTabs(indent)}+ ${key}: ${newValue}\n`,
-  stay: (indent, key, value) => `${makeTabs(indent)}  ${key}: ${value}\n`,
+  added: (indent, key, oldValue, newValue) => `${makeTabs(indent)}+ ${key}: ${newValue}\n`,
+  removed: (indent, key, oldValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n`,
+  changed: (indent, key, oldValue, newValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n${makeTabs(indent)}+ ${key}: ${newValue}\n`,
+  unchanged: (indent, key, oldValue) => `${makeTabs(indent)}  ${key}: ${oldValue}\n`,
 };
 
 const prettify = (data, indent = 2) => Object.entries(data).map(([key, item]) => {
@@ -33,7 +33,7 @@ const prettify = (data, indent = 2) => Object.entries(data).map(([key, item]) =>
   return mapping[item.state](
     indent,
     key,
-    renderer(item.value, indent),
+    renderer(item.oldValue, indent),
     renderer(item.newValue, indent),
   );
 }).join('');

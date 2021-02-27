@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
 const mapping = {
-  added: (pathToProp, key, originalValue, newValue) => `Property '${pathToProp}${key}' was added with value: ${newValue}\n`,
+  added: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was added with value: ${newValue}\n`,
   removed: (pathToProp, key) => `Property '${pathToProp}${key}' was removed\n`,
-  changed: (pathToProp, key, originalValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${originalValue} to ${newValue}\n`,
-  stay: () => '',
+  changed: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${oldValue} to ${newValue}\n`,
+  unchanged: () => '',
 };
 const renderer = (item) => {
   if (_.isObject(item) || _.isArray(item)) {
@@ -23,7 +23,7 @@ const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) =>
   return mapping[v.state](
     pathToProp,
     k,
-    renderer(v.value),
+    renderer(v.oldValue),
     renderer(v.newValue),
   );
 }).join('');

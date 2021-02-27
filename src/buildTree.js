@@ -10,13 +10,13 @@ const makeComparsion = (val1, val2) => {
     return 'removed';
   }
   if (_.isEqual(val1, val2)) {
-    return 'stay';
+    return 'unchanged';
   }
   return 'changed';
 };
 
-const makeObject = (state, value, newValue, children) => ({
-  state, value, newValue, children,
+const makeObject = (state, oldValue, newValue, children) => ({
+  state, oldValue, newValue, children,
 });
 
 const isModifiedObjects = (value1, value2) => (
