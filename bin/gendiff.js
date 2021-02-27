@@ -13,7 +13,7 @@ const runCLI = () => {
     .version('1.0.0')
     .action((filepath1, filepath2, options) => {
       console.log(
-        makeDiff(filepath1, filepath2, options.format)
+        makeDiff(filepath1, filepath2, options.format),
       );
     });
 

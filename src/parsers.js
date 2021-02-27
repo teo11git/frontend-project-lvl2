@@ -1,5 +1,4 @@
 import YAML from 'js-yaml';
-import _ from 'lodash';
 
 const parsers = {
   json: JSON.parse,
