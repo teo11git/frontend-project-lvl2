@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/teo11git/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/teo11git/frontend-project-lvl2/actions)",
+  "description": "The utility collates two files and return difference",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"

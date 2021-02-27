@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import fs from 'fs';
-import path from 'path';
 import buildTree from './buildTree.js';
 import parse from './parsers.js';
+import fs from 'fs';
+import path from 'path';
 import formatTo from './formatters/index.js';
 
 const readFile = (filePath) => ({
