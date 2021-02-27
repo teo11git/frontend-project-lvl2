@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import calculateDelta from './compare-files/delta-fn.js';
+import calculateDelta from './buildTree.js';
 import parse from './file-processing/parsers.js';
 import getFile from './file-processing/file-reader.js';
 import formatTo from './formatters/index.js';
