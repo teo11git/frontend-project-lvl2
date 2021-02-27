@@ -18,7 +18,7 @@
   "homepage": "https://github.com/teo11git/frontend-project-lvl2#readme",
   "type": "module",
   "bin": {
-    "gendiff": "src/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "dependencies": {
     "@jest/globals": "^26.6.2",
