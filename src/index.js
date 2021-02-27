@@ -6,7 +6,7 @@ import path from 'path';
 import formatTo from './formatters/index.js';
 
 const readFile = (filePath) => ({
-  content: fs.readFileSync(filePath, 'utf-8').trim(),
+  data: fs.readFileSync(filePath, 'utf-8').trim(),
   extension: path.parse(filePath).ext.slice(1),
 });
 
