@@ -2,7 +2,7 @@ import formatToStylish from './stylish.js';
 import formatToPlain from './plain.js';
 
 const mapping = {
-  json: JSON.stringify,
+  json: (data) => JSON.stringify(data, null, '  '),
   stylish: formatToStylish,
   plain: formatToPlain,
 };

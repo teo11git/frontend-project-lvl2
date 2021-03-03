@@ -24,18 +24,19 @@ const mapping = {
   removed: (indent, key, oldValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n`,
   changed: (indent, key, oldValue, newValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n${makeTabs(indent)}+ ${key}: ${newValue}\n`,
   unchanged: (indent, key, oldValue) => `${makeTabs(indent)}  ${key}: ${oldValue}\n`,
+  modified: (indent, key, oldValu, newValue, children) => `${makeTabs(indent)}  ${key}: {\n${prettify(children, indent + 4)}${makeTabs(indent)}  }\n`,
 };
 
-const prettify = (data, indent = 2) => Object.entries(data).map(([key, item]) => {
-  if (item.children !== null) {
-    return `${makeTabs(indent)}  ${key}: {\n${prettify(item.children, indent + 4)}${makeTabs(indent)}  }\n`;
-  }
-  return mapping[item.state](
+const prettify = (data, indent = 2) => (
+  data.map(({
+    state, key, oldValue, newValue, children,
+  }) => mapping[state](
     indent,
     key,
-    renderer(item.oldValue, indent),
-    renderer(item.newValue, indent),
-  );
-}).join('');
+    renderer(oldValue, indent),
+    renderer(newValue, indent),
+    children,
+  )).join('')
+);
 
 export default (data) => `{\n${prettify(data).slice(0, -1)}\n}`;

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 
 const specialValue = 'special_no_value';
-
-const makeComparsion = (val1, val2) => {
+/*
+const defineType = (val1, val2) => {
   if (val1 === specialValue) {
     return 'added';
   }
@@ -12,28 +12,51 @@ const makeComparsion = (val1, val2) => {
   if (_.isEqual(val1, val2)) {
     return 'unchanged';
   }
+  if (_.isPlainObject(value1 && _.isPlainObjecy(value2))) {
+    return 'modified';
+  }
   return 'changed';
 };
 
 const makeObject = (state, oldValue, newValue, children) => ({
-  state, oldValue, newValue, children,
+  state, key, oldValue, newValue, children,
 });
-
-const isModifiedObjects = (value1, value2) => (
-  (_.isPlainObject(value1) && _.isPlainObject(value2))
-    && (
-      _.intersection(
-        Object.keys(value1),
-        Object.keys(value2),
-      ).length > 0
-    )
-);
-
-const buildTree = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(obj2)))
+*/
+const buildTree = (data1, data2) => _(_.union(Object.keys(data1), Object.keys(data2)))
   .sortBy()
-  .reduce((acc, key) => {
-    const value1 = _.has(obj1, key) ? obj1[key] : specialValue;
-    const value2 = _.has(obj2, key) ? obj2[key] : specialValue;
+  .map((key) => {
+    const oldValue = _.has(data1, key) ? data1[key] : specialValue;
+    const newValue = _.has(data2, key) ? data2[key] : specialValue;
+    if (oldValue === specialValue) {
+      return {
+        state: 'added', key, oldValue, newValue,
+      };
+    }
+    if (newValue === specialValue) {
+      return {
+        state: 'removed', key, oldValue, newValue,
+      };
+    }
+    if (_.isEqual(oldValue, newValue)) {
+      return {
+        state: 'unchanged', key, oldValue, newValue,
+      };
+    }
+    if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
+      return {
+        state: 'modified',
+        key,
+        oldValue,
+        newValue,
+        children: [...buildTree(data1[key], data2[key])],
+      };
+    }
+    return {
+      state: 'changed', key, oldValue, newValue,
+    };
+  });
+
+/*
     if (isModifiedObjects(obj1[key], obj2[key])) {
       return {
         ...acc,
@@ -48,11 +71,11 @@ const buildTree = (obj1, obj2) => _(_.union(Object.keys(obj1), Object.keys(obj2)
     return {
       ...acc,
       [key]: makeObject(
-        makeComparsion(value1, value2, specialValue),
+        makeComparsion(value1, value2),
         value1,
         value2,
         null,
       ),
     };
-  }, {});
+    */
 export default buildTree;

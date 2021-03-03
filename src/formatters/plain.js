@@ -5,7 +5,9 @@ const mapping = {
   removed: (pathToProp, key) => `Property '${pathToProp}${key}' was removed\n`,
   changed: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${oldValue} to ${newValue}\n`,
   unchanged: () => '',
+  modified: (pathToProp, key, oldValue, newValue, children) => `${prettify(children, `${pathToProp}${key}.`)}`,
 };
+
 const renderer = (item) => {
   if (_.isObject(item) || _.isArray(item)) {
     return '[complex value]';
@@ -16,15 +18,15 @@ const renderer = (item) => {
   return item;
 };
 
-const prettify = (data, pathToProp = '') => Object.entries(data).map(([k, v]) => {
-  if (v.children !== null) {
-    return `${prettify(v.children, `${pathToProp}${k}.`)}`;
-  }
-  return mapping[v.state](
+const prettify = (data, pathToProp = '') => (
+  data.map(({
+    state, key, oldValue, newValue, children,
+  }) => mapping[state](
     pathToProp,
-    k,
-    renderer(v.oldValue),
-    renderer(v.newValue),
-  );
-}).join('');
+    key,
+    renderer(oldValue),
+    renderer(newValue),
+    children,
+  )).join('')
+);
 export default prettify;
