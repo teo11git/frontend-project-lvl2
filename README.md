@@ -10,7 +10,7 @@ That utility collates two files and returns difference.
 * The output can be in three types: "plain", "stylish" and json.
 ## Installation 
 ```
-git clone https://github.com/teo11git/frontend-project-lvl1.git
+git clone https://github.com/teo11git/frontend-project-lvl2.git
 cd frontend-project-lvl2
 npm link
 ```
