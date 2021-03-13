@@ -5,10 +5,13 @@ import buildTree from './buildTree.js';
 import parse from './parsers.js';
 import formatTo from './formatters/index.js';
 
-const readFile = (filePath) => ({
-  data: fs.readFileSync(filePath, 'utf-8').trim(),
-  extension: path.parse(filePath).ext.slice(1),
-});
+const readFile = (filePath) => {
+  const fullPath = path.resolve(filePath);
+  return {
+  data: fs.readFileSync(fullPath, 'utf-8').trim(),
+  extension: path.parse(fullPath).ext.slice(1),
+  };
+};
 
 const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
   const object1 = parse(readFile(filepath1));

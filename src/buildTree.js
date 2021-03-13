@@ -1,17 +1,16 @@
 import _ from 'lodash';
 
-const specialValue = 'special_no_value';
 const buildTree = (data1, data2) => _(_.union(Object.keys(data1), Object.keys(data2)))
   .sortBy()
   .map((key) => {
-    const oldValue = _.has(data1, key) ? data1[key] : specialValue;
-    const newValue = _.has(data2, key) ? data2[key] : specialValue;
-    if (oldValue === specialValue) {
+    const oldValue = _.has(data1, key) ? data1[key] : undefined;
+    const newValue = _.has(data2, key) ? data2[key] : undefined;
+    if (oldValue === undefined) {
       return {
         state: 'added', key, oldValue, newValue,
       };
     }
-    if (newValue === specialValue) {
+    if (newValue === undefined) {
       return {
         state: 'removed', key, oldValue, newValue,
       };
