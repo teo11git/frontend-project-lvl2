@@ -33,7 +33,6 @@
       {
         "state": "added",
         "key": "follow",
-        "oldValue": "special_no_value",
         "newValue": false
       },
       {
@@ -45,8 +44,7 @@
       {
         "state": "removed",
         "key": "setting2",
-        "oldValue": 200,
-        "newValue": "special_no_value"
+        "oldValue": 200
       },
       {
         "state": "changed",
@@ -57,13 +55,11 @@
       {
         "state": "added",
         "key": "setting4",
-        "oldValue": "special_no_value",
         "newValue": "blah blah"
       },
       {
         "state": "added",
         "key": "setting5",
-        "oldValue": "special_no_value",
         "newValue": {
           "key5": "value5"
         }
@@ -112,7 +108,6 @@
           {
             "state": "added",
             "key": "ops",
-            "oldValue": "special_no_value",
             "newValue": "vops"
           }
         ]
@@ -165,13 +160,11 @@
       "deep": {
         "id": 45
       }
-    },
-    "newValue": "special_no_value"
+    }
   },
   {
     "state": "added",
     "key": "group3",
-    "oldValue": "special_no_value",
     "newValue": {
       "deep": {
         "id": {

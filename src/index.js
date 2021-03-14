@@ -6,10 +6,12 @@ import parse from './parsers.js';
 import formatTo from './formatters/index.js';
 
 const readFile = (filePath) => {
-  const fullPath = path.resolve(filePath);
+  const fullPath = path.isAbsolute(filePath)
+    ? filePath
+    : path.join(path.resolve(process.cwd()), filePath);
   return {
-  data: fs.readFileSync(fullPath, 'utf-8').trim(),
-  extension: path.parse(fullPath).ext.slice(1),
+    data: fs.readFileSync(fullPath, 'utf-8').trim(),
+    extension: path.parse(fullPath).ext.slice(1),
   };
 };
 
