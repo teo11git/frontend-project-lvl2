@@ -15,4 +15,5 @@ cd frontend-project-lvl2
 npm link
 ```
 ## Usage
-[![asciicast](https://asciinema.org/a/392244.svg)](https://asciinema.org/a/392244)
+[![asciicast](https://asciinema.org/a/399427.svg)](https://asciinema.org/a/399427)
+[![asciicast](https://asciinema.org/a/399429.svg)](https://asciinema.org/a/399429)
