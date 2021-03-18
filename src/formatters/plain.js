@@ -5,7 +5,7 @@ const mapping = {
   removed: (pathToProp, key) => `Property '${pathToProp}${key}' was removed\n`,
   changed: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${oldValue} to ${newValue}\n`,
   unchanged: () => '',
-  modified: (pathToProp, key, oldValue, newValue, children, prettiFn) => `${prettiFn(children, `${pathToProp}${key}.`)}`,
+  nasted: (pathToProp, key, oldValue, newValue, children, prettiFn) => `${prettiFn(children, `${pathToProp}${key}.`)}`,
 };
 
 const renderer = (item) => {
@@ -20,8 +20,8 @@ const renderer = (item) => {
 
 const prettify = (data, pathToProp = '') => (
   data.map(({
-    state, key, oldValue, newValue, children,
-  }) => mapping[state](
+    type, key, oldValue, newValue, children,
+  }) => mapping[type](
     pathToProp,
     key,
     renderer(oldValue),

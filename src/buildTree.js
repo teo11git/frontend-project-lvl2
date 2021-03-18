@@ -7,22 +7,22 @@ const buildTree = (data1, data2) => _(_.union(Object.keys(data1), Object.keys(da
     const newValue = _.has(data2, key) ? data2[key] : undefined;
     if (oldValue === undefined) {
       return {
-        state: 'added', key, oldValue, newValue,
+        type: 'added', key, oldValue, newValue,
       };
     }
     if (newValue === undefined) {
       return {
-        state: 'removed', key, oldValue, newValue,
+        type: 'removed', key, oldValue, newValue,
       };
     }
     if (_.isEqual(oldValue, newValue)) {
       return {
-        state: 'unchanged', key, oldValue, newValue,
+        type: 'unchanged', key, oldValue, newValue,
       };
     }
     if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
       return {
-        state: 'modified',
+        type: 'nasted',
         key,
         oldValue,
         newValue,
@@ -30,7 +30,7 @@ const buildTree = (data1, data2) => _(_.union(Object.keys(data1), Object.keys(da
       };
     }
     return {
-      state: 'changed', key, oldValue, newValue,
+      type: 'changed', key, oldValue, newValue,
     };
   });
 export default buildTree;

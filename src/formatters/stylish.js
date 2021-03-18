@@ -24,13 +24,13 @@ const mapping = {
   removed: (indent, key, oldValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n`,
   changed: (indent, key, oldValue, newValue) => `${makeTabs(indent)}- ${key}: ${oldValue}\n${makeTabs(indent)}+ ${key}: ${newValue}\n`,
   unchanged: (indent, key, oldValue) => `${makeTabs(indent)}  ${key}: ${oldValue}\n`,
-  modified: (indent, key, oldValu, newValue, children, prettiFn) => `${makeTabs(indent)}  ${key}: {\n${prettiFn(children, indent + 4)}${makeTabs(indent)}  }\n`,
+  nasted: (indent, key, oldValu, newValue, children, prettiFn) => `${makeTabs(indent)}  ${key}: {\n${prettiFn(children, indent + 4)}${makeTabs(indent)}  }\n`,
 };
 
 const prettify = (data, indent = 2) => (
   data.map(({
-    state, key, oldValue, newValue, children,
-  }) => mapping[state](
+    type, key, oldValue, newValue, children,
+  }) => mapping[type](
     indent,
     key,
     renderer(oldValue, indent),

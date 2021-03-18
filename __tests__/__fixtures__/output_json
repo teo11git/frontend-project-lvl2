@@ -1,6 +1,6 @@
 [
   {
-    "state": "modified",
+    "type": "nasted",
     "key": "common",
     "oldValue": {
       "setting1": "Value 1",
@@ -31,41 +31,41 @@
     },
     "children": [
       {
-        "state": "added",
+        "type": "added",
         "key": "follow",
         "newValue": false
       },
       {
-        "state": "unchanged",
+        "type": "unchanged",
         "key": "setting1",
         "oldValue": "Value 1",
         "newValue": "Value 1"
       },
       {
-        "state": "removed",
+        "type": "removed",
         "key": "setting2",
         "oldValue": 200
       },
       {
-        "state": "changed",
+        "type": "changed",
         "key": "setting3",
         "oldValue": true,
         "newValue": null
       },
       {
-        "state": "added",
+        "type": "added",
         "key": "setting4",
         "newValue": "blah blah"
       },
       {
-        "state": "added",
+        "type": "added",
         "key": "setting5",
         "newValue": {
           "key5": "value5"
         }
       },
       {
-        "state": "modified",
+        "type": "nasted",
         "key": "setting6",
         "oldValue": {
           "key": "value",
@@ -82,7 +82,7 @@
         },
         "children": [
           {
-            "state": "modified",
+            "type": "nasted",
             "key": "doge",
             "oldValue": {
               "wow": ""
@@ -92,7 +92,7 @@
             },
             "children": [
               {
-                "state": "changed",
+                "type": "changed",
                 "key": "wow",
                 "oldValue": "",
                 "newValue": "so much"
@@ -100,13 +100,13 @@
             ]
           },
           {
-            "state": "unchanged",
+            "type": "unchanged",
             "key": "key",
             "oldValue": "value",
             "newValue": "value"
           },
           {
-            "state": "added",
+            "type": "added",
             "key": "ops",
             "newValue": "vops"
           }
@@ -115,7 +115,7 @@
     ]
   },
   {
-    "state": "modified",
+    "type": "nasted",
     "key": "group1",
     "oldValue": {
       "baz": "bas",
@@ -131,19 +131,19 @@
     },
     "children": [
       {
-        "state": "changed",
+        "type": "changed",
         "key": "baz",
         "oldValue": "bas",
         "newValue": "bars"
       },
       {
-        "state": "unchanged",
+        "type": "unchanged",
         "key": "foo",
         "oldValue": "bar",
         "newValue": "bar"
       },
       {
-        "state": "changed",
+        "type": "changed",
         "key": "nest",
         "oldValue": {
           "key": "value"
@@ -153,7 +153,7 @@
     ]
   },
   {
-    "state": "removed",
+    "type": "removed",
     "key": "group2",
     "oldValue": {
       "abc": 12345,
@@ -163,7 +163,7 @@
     }
   },
   {
-    "state": "added",
+    "type": "added",
     "key": "group3",
     "newValue": {
       "deep": {
