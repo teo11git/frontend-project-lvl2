@@ -30,4 +30,4 @@ const prettify = (data, pathToProp = '') => (
     prettify,
   )).join('')
 );
-export default prettify;
+export default (data) => prettify(data).trim();

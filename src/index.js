@@ -25,7 +25,7 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     return null;
   }
   const ast = buildTree(object1, object2);
-  return formatTo(formatName)(ast).trim();
+  return formatTo(formatName)(ast);
 };
 
 export default genDiff;
