@@ -6,4 +6,4 @@ const parsers = {
   yml: YAML.load,
 };
 
-export default ({ extension, data }) => parsers[extension](data);
+export default (data, format) => parsers[format](data);
