@@ -1,43 +1,29 @@
 import _ from 'lodash';
 
 const indent = (depth, spaceCount = 4) => {
-  const indentCount = depth * spaceCount;
-  return '.'.repeat(indentCount < 0 ? 0 : indentCount);
+  const indentCount = depth * spaceCount + 2;
+  return ' '.repeat(indentCount);
 };
 
 const stringify = (data, depth) => {
-  console.log('start stringify');
-  console.log(data);
-  if(!(_.isPlainObject(data))) {
-    console.log('Just write data');
+  if (!(_.isPlainObject(data))) {
     return `${data}`;
-  };
-  console.log('start render nested object');
-  const result = Object.entries(data).map(([key, value]) => `${indent(depth)}  ${key}: ${stringify(value, depth + 1)}`);
-  return `/\n${result.join('\n')}\n${indent(depth)}>>/`  
+  }
+  const result = Object.entries(data).map(([key, value]) => `${indent(depth + 1)}  ${key}: ${stringify(value, depth + 1)}`);
+  return `{\n${result.join('\n')}\n${indent(depth)}  }`;
 };
 
 const mapping = {
-  added: (node, depth) => {
-    console.log('from added');
-    console.log(node.newValue);
-    return `${indent(depth)}+ ${node.key}: ${stringify(node.newValue, depth)}\n`
-  },
+  added: (node, depth) => `${indent(depth)}+ ${node.key}: ${stringify(node.newValue, depth)}\n`,
   removed: (node, depth) => `${indent(depth)}- ${node.key}: ${stringify(node.oldValue, depth)}\n`,
   changed: (node, depth) => `${indent(depth)}- ${node.key}: ${stringify(node.oldValue, depth)}\n${indent(depth)}+ ${node.key}: ${stringify(node.newValue, depth)}\n`,
-  unchanged: (node, depth) => `${indent(depth)}!!${node.key}: ${stringify(node.oldValue, depth)}\n`,
-  nasted: (node, depth, iter) => {
-    return `${indent(depth)}  ${node.key}: $\n${iter(node.children, depth + 1)}${indent(depth)}<<$\n`;    
-  },
+  unchanged: (node, depth) => `${indent(depth)}  ${node.key}: ${stringify(node.oldValue, depth)}\n`,
+  nasted: (node, depth, iter) => `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1)}${indent(depth)}  }\n`,
 };
 
 const renderTree = (ast) => {
   const iter = (tree, depth) => {
-    console.log('Start!!!');
-    const result = tree.map((node) => {
-      console.log(node);
-      return mapping[node.type](node, depth, iter);
-    });
+    const result = tree.map((node) => mapping[node.type](node, depth, iter));
     return `${result.join('')}`;
   };
   return `{\n${iter(ast, 0)}}`;
