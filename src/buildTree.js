@@ -22,7 +22,7 @@ const buildTree = (data1, data2) => _(_.union(Object.keys(data1), Object.keys(da
     }
     if (_.isPlainObject(oldValue) && _.isPlainObject(newValue)) {
       return {
-        type: 'nasted',
+        type: 'nested',
         key,
         oldValue,
         newValue,

@@ -18,7 +18,7 @@ const mapping = {
   removed: (node, depth) => `${indent(depth)}- ${node.key}: ${stringify(node.oldValue, depth)}\n`,
   changed: (node, depth) => `${indent(depth)}- ${node.key}: ${stringify(node.oldValue, depth)}\n${indent(depth)}+ ${node.key}: ${stringify(node.newValue, depth)}\n`,
   unchanged: (node, depth) => `${indent(depth)}  ${node.key}: ${stringify(node.oldValue, depth)}\n`,
-  nasted: (node, depth, iter) => `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1)}${indent(depth)}  }\n`,
+  nested: (node, depth, iter) => `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1)}${indent(depth)}  }\n`,
 };
 
 const renderTree = (ast) => {

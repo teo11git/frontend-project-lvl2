@@ -1,14 +1,6 @@
 import _ from 'lodash';
 
-const mapping = {
-  added: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was added with value: ${newValue}\n`,
-  removed: (pathToProp, key) => `Property '${pathToProp}${key}' was removed\n`,
-  changed: (pathToProp, key, oldValue, newValue) => `Property '${pathToProp}${key}' was updated. From ${oldValue} to ${newValue}\n`,
-  unchanged: () => '',
-  nasted: (pathToProp, key, oldValue, newValue, children, prettiFn) => `${prettiFn(children, `${pathToProp}${key}.`)}`,
-};
-
-const renderer = (item) => {
+const stringify = (item) => {
   if (_.isObject(item) || _.isArray(item)) {
     return '[complex value]';
   }
@@ -18,16 +10,20 @@ const renderer = (item) => {
   return item;
 };
 
-const prettify = (data, pathToProp = '') => (
-  data.map(({
-    type, key, oldValue, newValue, children,
-  }) => mapping[type](
-    pathToProp,
-    key,
-    renderer(oldValue),
-    renderer(newValue),
-    children,
-    prettify,
-  )).join('')
-);
-export default (data) => prettify(data).trim();
+const mapping = {
+  added: (node, pathToProp) => `Property '${pathToProp}${node.key}' was added with value: ${stringify(node.newValue)}`,
+  removed: (node, pathToProp) => `Property '${pathToProp}${node.key}' was removed`,
+  changed: (node, pathToProp) => `Property '${pathToProp}${node.key}' was updated. From ${stringify(node.oldValue)} to ${stringify(node.newValue)}`,
+  unchanged: () => '',
+  nested: (node, pathToProp, iter) => `${iter(node.children, `${pathToProp}${node.key}.`)}`,
+};
+
+const makeRender = (ast) => {
+  const iter = (tree, pathToProp) => {
+    const result = tree.map((node) => mapping[node.type](node, pathToProp, iter));
+    return `${result.filter((item) => item).join('\n')}`;
+  };
+  return `${iter(ast, '')}`;
+};
+
+export default makeRender;
